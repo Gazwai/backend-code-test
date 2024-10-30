@@ -1,6 +1,8 @@
-class NoDiscount
+require_relative 'discount'
 
-  # When applying a discount we need the item, number of items and the prices
+class NoDiscount
+  include Discount
+
   def apply(item, count, prices)
     prices[item] * count
   end
