@@ -19,19 +19,13 @@ require_relative 'single_item_half_price'
 require_relative 'two_for_one'
 
 class Checkout
-  attr_reader :prices, :basket
-  private :prices, :basket
+  attr_reader :prices, :basket, :discount_database
+  private :prices, :basket, :discount_database
 
-  def initialize(prices)
+  def initialize(prices, discount_database)
     @prices = prices
     @basket = Hash.new(0)
-    @discounts = {
-      apple: TwoForOne.new,
-      banana: HalfPrice.new,
-      mango: BuyThreeGetOneFree.new,
-      pear: TwoForOne.new,
-      pineapple: SingleItemHalfPrice.new
-    }
+    @discount_database = discount_database
   end
 
   def scan(item)
@@ -40,7 +34,7 @@ class Checkout
 
   def total
     basket.sum do |item, count|
-      discount = @discounts.fetch(item, NoDiscount.new)
+      discount = @discount_database.fecth_discount(item)
       discount.apply(item, count, prices)
     end
   end

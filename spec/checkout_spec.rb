@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'checkout'
+require 'discount_database'
 require 'buy_three_get_one_free'
 require 'half_price'
 require 'no_discount'
@@ -9,8 +10,7 @@ require 'two_for_one'
 RSpec.describe Checkout do
   describe '#total' do
     subject(:total) { checkout.total }
-
-    let(:checkout) { Checkout.new(prices) }
+    let(:discount_database) {  DiscountDatabase.new }
     let(:prices) {
       {
         apple: 10,
@@ -21,6 +21,17 @@ RSpec.describe Checkout do
         mango: 200
       }
     }
+
+    before do
+      discount_database.add_discount(:apple, TwoForOne.new)
+      discount_database.add_discount(:banana, HalfPrice.new)
+      discount_database.add_discount(:mango, BuyThreeGetOneFree.new)
+      discount_database.add_discount(:pear, TwoForOne.new)
+      discount_database.add_discount(:pineapple, SingleItemHalfPrice.new)
+    end
+
+
+    let(:checkout) { Checkout.new(prices, discount_database) }
 
     it 'calculates total with no discounts' do
       checkout.scan(:mango)
