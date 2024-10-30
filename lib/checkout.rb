@@ -28,14 +28,14 @@ class Checkout
     @discounts = {
       apple: TwoForOne.new,
       banana: HalfPrice.new,
-      mango: BuyThreeGetOneFree.new
+      mango: BuyThreeGetOneFree.new,
       pear: TwoForOne.new,
       pineapple: SingleItemHalfPrice.new
     }
   end
 
   def scan(item)
-    basket << item.to_sym += 1
+    basket[item.to_sym] += 1
   end
 
   def total
