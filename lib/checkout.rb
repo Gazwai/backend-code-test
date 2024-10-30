@@ -12,14 +12,27 @@
 # - Interface Separation
 # - Dependency Inversion
 
+require_relative 'buy_three_get_one_free'
+require_relative 'half_price'
+require_relative 'no_discount'
+require_relative 'single_item_half_price'
+require_relative 'two_for_one'
+
 class Checkout
-  attr_reader :prices
-  private :prices
+  attr_reader :prices, :basket
+  private :prices, :basket
 
   #  TODO: Basket and separate discount logic can be put into the initialize
   def initialize(prices)
     @prices = prices
     @basket = Hash.new(0)
+    @discounts = {
+      apple: TwoForOne.new,
+      banana: HalfPrice.new,
+      mango: BuyThreeGetOneFree.new
+      pear: TwoForOne.new,
+      pineapple: SingleItemHalfPrice.new
+    }
   end
 
   def scan(item)
