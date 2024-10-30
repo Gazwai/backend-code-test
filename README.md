@@ -8,7 +8,7 @@ This solution refactors the checkout system to support dynamic discounts via a `
 
 - **Dynamic Discounting**: Discounts like "Buy 3 Get 1 Free" are stored in `DiscountDatabase`, allowing easy updates and new discounts.
 - **Custom Error Handling**: Raises for unlisted items to ensure robustness.
-- **SOLID Refactoring**: Applies Single Responsibility, Open/Closed, and Liskov Substitution principles.
+- **Single Responsibility Refactoring**: Applies Single Responsibility principle by abstracting discount logic into their own classes.
 
 ## Structure
 
