@@ -21,7 +21,7 @@ require_relative 'two_for_one'
 
 class Checkout
   attr_reader :prices, :basket, :discount_database
-  private :prices, :basket, :discount_database
+  private :prices, :discount_database
 
   def initialize(prices, discount_database)
     @prices = prices
@@ -30,7 +30,10 @@ class Checkout
   end
 
   def scan(item)
-    basket[item.downcase.to_sym] += 1
+    item_sym = item.downcase.to_sym
+    raise "Item '#{item}' does not exist in the price list" unless prices.key?(item_sym)
+
+    basket[item_sym] += 1
   end
 
   def total

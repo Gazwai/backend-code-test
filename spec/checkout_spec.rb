@@ -41,11 +41,35 @@ RSpec.describe Checkout do
       end
     end
 
-    context 'when item is upcase' do
-      it 'does not error' do
-        checkout.scan(:MANGO)
-        expect(checkout.total).to eq(200)
-      end
+    it 'when item is upcase does not error' do
+      checkout.scan(:MANGO)
+      expect(checkout.total).to eq(200)
+    end
+  end
+
+  describe '#scan' do
+    let(:discount_database) {  DiscountDatabase.new }
+
+    let(:prices) {
+      {
+        apple: 10,
+        orange: 20,
+        pear: 15,
+        banana: 30,
+        pineapple: 100,
+        mango: 200
+      }
+    }
+
+    let(:checkout) { Checkout.new(prices, discount_database) }
+
+    it 'raises an error when an invalid item is scanned' do
+      expect { checkout.scan(:invalid_item) }.to raise_error("Item 'invalid_item' does not exist in the price list")
+    end
+
+    it 'adds valid items to the basket correctly' do
+      checkout.scan(:apple)
+      expect(checkout.basket).to eq({ apple: 1 })
     end
   end
 end
