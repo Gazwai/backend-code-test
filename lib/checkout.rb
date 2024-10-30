@@ -2,11 +2,11 @@
 # [x] Look for instances where code can be refactored to be easier to maintain
 # [x] Add tests that might be needed and let it guide development using TTD
 # [x] Add new requirements as specified, eg. Mangoes: buy 3 get 1 free
-# [ ] SOLID principles where applicable
+# [x] SOLID principles where applicable
 
 # [x] Single Responsibility
 # [x] Open/Closed
-# - Liskov Substitution
+# [x] Liskov Substitution
 
 # Last two may not be as pertinent depending on progress
 # - Interface Separation
