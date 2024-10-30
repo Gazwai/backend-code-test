@@ -19,10 +19,11 @@ class Checkout
   #  TODO: Basket and separate discount logic can be put into the initialize
   def initialize(prices)
     @prices = prices
+    @basket = Hash.new(0)
   end
 
   def scan(item)
-    basket << item.to_sym
+    basket << item.to_sym =+ 1
   end
 
   # TODO: This total has too many responsibilities and the nested ifs make it harder to maintain. Separate classes for discount logic?
@@ -49,12 +50,5 @@ class Checkout
     end
 
     total
-  end
-
-  private
-
-  # TODO: A Hash with a default would be a nicer data structure
-  def basket
-    @basket ||= Array.new
   end
 end
