@@ -41,27 +41,9 @@ class Checkout
 
   # TODO: This total has too many responsibilities and the nested ifs make it harder to maintain. Separate classes for discount logic?
   def total
-    total = 0
-
-    basket.inject(Hash.new(0)) { |items, item| items[item] += 1; items }.each do |item, count|
-      if item == :apple || item == :pear
-        if (count % 2 == 0)
-          total += prices.fetch(item) * (count / 2)
-        else
-          total += prices.fetch(item) * count
-        end
-      elsif item == :banana || item == :pineapple
-        if item == :pineapple
-          total += (prices.fetch(item) / 2)
-          total += (prices.fetch(item)) * (count - 1)
-        else
-          total += (prices.fetch(item) / 2) * count
-        end
-      else
-        total += prices.fetch(item) * count
-      end
+    basket.sum do |item, count|
+      discount = @discounts.fetch(item, NoDiscount.new)
+      discount.apply(item, count, prices)
     end
-
-    total
   end
 end
