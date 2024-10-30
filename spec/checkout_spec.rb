@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'checkout'
 
 # TODO: Using TTD to plan out how we can improve this code.
-# There are TwoForOne, HalfPrice, SingleItemHalfPrice, ThreeForOne, NoDiscount, lets extract this so the tests are more modular.
+# There are TwoForOne, HalfPrice, SingleItemHalfPrice, BuyThreeGetOneFree, NoDiscount, lets extract this so the tests are more modular.
 
 RSpec.describe Checkout do
   describe '#total' do
