@@ -1,8 +1,9 @@
-# TODO: Tasks and specifications
+# Tasks and specifications
 # [x] Look for instances where code can be refactored to be easier to maintain
 # [x] Add tests that might be needed and let it guide development using TTD
 # [x] Add new requirements as specified, eg. Mangoes: buy 3 get 1 free
 # [x] SOLID principles where applicable
+# [x] Implement discount database
 
 # [x] Single Responsibility
 # [x] Open/Closed
@@ -29,7 +30,7 @@ class Checkout
   end
 
   def scan(item)
-    basket[item.to_sym] += 1
+    basket[item.downcase.to_sym] += 1
   end
 
   def total
