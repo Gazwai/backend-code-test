@@ -23,7 +23,7 @@ class Checkout
   end
 
   def scan(item)
-    basket << item.to_sym =+ 1
+    basket << item.to_sym += 1
   end
 
   # TODO: This total has too many responsibilities and the nested ifs make it harder to maintain. Separate classes for discount logic?
