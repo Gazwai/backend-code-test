@@ -4,10 +4,10 @@ class DiscountDatabase
   end
 
   def add_discount(item, discount)
-    @discounts[item.to_sym] = discount
+    @discounts[item.downcase.to_sym] = discount
   end
 
   def fecth_discount(item)
-    @discounts.fetch(item.to_sym, NoDiscount.new)
+    @discounts.fetch(item.downcase.to_sym, NoDiscount.new)
   end
 end
